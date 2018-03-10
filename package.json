@@ -10,6 +10,7 @@
     "test": "yarn eslint ./src"
   },
   "dependencies": {
+    "img-loader": "^2.0.1",
     "vue": "^2.5.11"
   },
   "browserslist": [
@@ -47,6 +48,7 @@
     "postcss-pseudoelements": "^5.0.0",
     "postcss-will-change": "^2.0.0",
     "postcss-zindex": "^2.2.0",
+    "url-loader": "^1.0.1",
     "vue-loader": "^13.0.5",
     "vue-template-compiler": "^2.4.4",
     "webpack": "^3.6.0",

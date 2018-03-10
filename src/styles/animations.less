@@ -1,0 +1,127 @@
+/*************************/
+/* Effect: language bottom line slides/fades in */
+/*************************/
+
+#language-setting span::after {
+  position: relative;
+  display: block;
+  margin-top: 3px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 1);
+  content: '';
+  opacity: 0;
+  transition: opacity 0.3s, transform 0.3s, background 0.3s;
+  transform: translateY(10px);
+}
+#language-setting span:hover::after,
+#language-setting span:active::after #language-setting span:focus::after {
+  opacity: 1;
+  transform: translateY(0px);
+}
+/*************************/
+/* FLip X */
+/*************************/
+
+.flip-init {
+  transform: perspective(400px) rotateX(90deg);
+  opacity: 0;
+}
+.fxFlipInX {
+  backface-visibility: visible !important;
+  animation-name: flipInX;
+  animation-duration: 1s;
+  animation-fill-mode: both;
+}
+@keyframes flipInX {
+  0% {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  40% {
+    transform: perspective(400px) rotateX(-10deg);
+  }
+  70% {
+    transform: perspective(400px) rotateX(10deg);
+  }
+  100% {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+/*************************/
+/* Fade In */
+/*************************/
+
+.animation-init {
+  opacity: 0;
+  transform: translateY(200px) scale(1.2);
+}
+.animate-in {
+  animation: moveUp 0.65s ease forwards;
+}
+@keyframes moveUp {
+  0% {
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+/*************************/
+/* Soft Scale */
+/*************************/
+
+.fxSoftScale .navOutNext {
+  animation: scaleUp 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
+}
+.fxSoftScale .navInNext {
+  animation: scaleDownUp 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
+}
+.fxSoftScale .navOutPrev {
+  animation: scaleDown 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
+}
+.fxSoftScale .navInPrev {
+  animation: scaleUpDown 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
+}
+@keyframes scaleUp {
+  from {
+  }
+  /* Fixes Chrome issue 35.0.1916.114 (easing breaks) */
+
+  to {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@keyframes scaleDownUp {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes scaleDown {
+  from {
+  }
+  /* Fixes Chrome issue 35.0.1916.114 (easing breaks) */
+
+  to {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+@keyframes scaleUpDown {
+  from {
+    transform: scale(1.2);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

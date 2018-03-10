@@ -33,10 +33,35 @@ const config_common = {
         exclude: /node_modules/
       },
       {
-        test: /\.(png|jpg|gif|svg)$/,
+        test: /\.(svg|ttf)$/,
         loader: 'file-loader',
         options: {
-          name: '[name].[ext]?[hash]'
+          name: '[name].[sha512:hash:base62:8].[ext]?[hash]'
+        }
+      },{
+        test: /\.(jpe?g|png|gif)$/i,
+        use: [
+          {
+            loader: 'file-loader',
+            options: {
+              name: '[name].[sha512:hash:base62:8].[ext]'
+            }
+          },
+          {
+            loader: 'img-loader',
+            // use default compression options
+            options: {
+              enabled: isProductionBuild
+            }
+          }
+        ]
+      },{
+        test: /\.(woff|woff2)$/,
+        use: {
+          loader: 'url-loader',
+          options: {
+            name: '[name].[sha512:hash:base62:8].[ext]'
+          }
         }
       }
     ]
@@ -53,16 +78,15 @@ const config_common = {
 
     // generate html
     new HtmlWebpackPlugin({
-      title: 'Your Voice Matters',
       filename: 'index.html',
-      template: './index.html',
+      template: './src/index.html',
       inject: 'body'
     }),
 
     // generate favicon
     new FaviconsWebpackPlugin({
       // Your source logo
-      logo: './src/assets/fuchsvomwalde-symbol.png'
+      logo: './src/assets/favicon-master.png'
     }),
 
     // make available, global constants
