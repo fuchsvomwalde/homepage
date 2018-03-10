@@ -1,0 +1,19 @@
+# macOS
+.DS_Store
+
+# node, npm & yarn
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# build artefacts
+dist/
+old/
+
+# editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

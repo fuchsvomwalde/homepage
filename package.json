@@ -1,0 +1,56 @@
+{
+  "name": "jaq",
+  "description": "Jascha A. Quintern Homepage",
+  "version": "1.0.0",
+  "author": "jascha.quintern@gmail.com",
+  "license": "MIT",
+  "scripts": {
+    "start": "cross-env NODE_ENV=development PORT=3000 webpack-dev-server --hot",
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
+    "test": "yarn eslint ./src"
+  },
+  "dependencies": {
+    "vue": "^2.5.11"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not ie <= 8"
+  ],
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-eslint": "^8.2.2",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "brotli-webpack-plugin": "^0.5.0",
+    "compression-webpack-plugin": "^1.1.11",
+    "cross-env": "^5.0.5",
+    "css-loader": "^0.28.7",
+    "eslint": "^4.18.2",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-babel": "^4.1.2",
+    "eslint-plugin-css-modules": "^2.7.5",
+    "eslint-plugin-prettier": "^2.6.0",
+    "favicons-webpack-plugin": "^0.0.7",
+    "file-loader": "^1.1.4",
+    "html-webpack-plugin": "^3.0.6",
+    "less": "^3.0.1",
+    "less-loader": "^4.1.0",
+    "pleeease-filters": "^4.0.0",
+    "postcss-clean": "^1.1.0",
+    "postcss-csso": "^3.0.0",
+    "postcss-flexbugs-fixes": "^3.3.0",
+    "postcss-gradient-transparency-fix": "^2.1.0",
+    "postcss-loader": "^2.1.1",
+    "postcss-normalize": "^4.0.0",
+    "postcss-pseudoelements": "^5.0.0",
+    "postcss-will-change": "^2.0.0",
+    "postcss-zindex": "^2.2.0",
+    "vue-loader": "^13.0.5",
+    "vue-template-compiler": "^2.4.4",
+    "webpack": "^3.6.0",
+    "webpack-dev-server": "^2.9.1",
+    "webpack-merge": "^4.1.2"
+  }
+}
