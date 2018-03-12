@@ -21,11 +21,7 @@ const config_common = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: {
-          loaders: {}
-          // other vue-loader options go here
-        }
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,
@@ -33,12 +29,22 @@ const config_common = {
         exclude: /node_modules/
       },
       {
-        test: /\.(svg|ttf)$/,
+        test: /\.svg$/,
+        loader: 'vue-svg-loader',
+        options: {
+          svgo: {
+            plugins: [{ removeDoctype: true }, { removeComments: true }]
+          }
+        }
+      },
+      {
+        test: /\.ttf$/,
         loader: 'file-loader',
         options: {
           name: '[name].[sha512:hash:base62:8].[ext]?[hash]'
         }
-      },{
+      },
+      {
         test: /\.(jpe?g|png|gif)$/i,
         use: [
           {
@@ -55,7 +61,8 @@ const config_common = {
             }
           }
         ]
-      },{
+      },
+      {
         test: /\.(woff|woff2)$/,
         use: {
           loader: 'url-loader',
@@ -106,7 +113,23 @@ const config_dev = {
     historyApiFallback: true,
 
     noInfo: true,
-    overlay: true
+    overlay: true,
+    stats: {
+      colors: true,
+      hash: false,
+      version: false,
+      timings: false,
+      assets: false,
+      chunks: false,
+      modules: false,
+      reasons: true,
+      children: false,
+      source: false,
+      errors: true,
+      errorDetails: false,
+      warnings: false,
+      publicPath: false
+    }
   },
   performance: {
     hints: false
@@ -119,6 +142,10 @@ const config_prod = {
   output: {
     path: path.resolve(__dirname, './dist'),
     filename: '[name].[chunkhash:8].js'
+  },
+  performance: {
+    // log performance hints
+    hints: 'warning'
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({

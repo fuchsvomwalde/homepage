@@ -1,148 +1,179 @@
 <template>
   <div id="app">
-    <div id="large-header" class="large-header">
+    <div id="background" class="background">
         <ul class="image-wrap fxSoftScale">
-            <li class="current">
-                <img src="./assets/img/bgr_1.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_2.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_3.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_4.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_5.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_6.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_7.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_8.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_9.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_10.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_11.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_12.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_13.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_14.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_15.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_16.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_17.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_18.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_19.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_20.jpg" alt="Hintergrundbild">
-            </li>
-            <li>
-                <img src="./assets/img/bgr_21.jpg" alt="Hintergrundbild">
+            <li v-bind:class="[counter % images.length === index ? 'current' : '']"
+                v-for="(imgURI, index) in images" v-bind:key="imgURI"
+                v-bind:style="{ backgroundImage: `url(${imgURI})`}">
             </li>
         </ul>
-        <canvas id="header-canvas"></canvas>
-
-        <!-- div id="header-skipper" class="header-skipper">Scrolle um mehr zu erfahren
-            <div class="arrow-down"></div>
-        </div -->
-        <div class="header-caption">© Jascha Quintern Photography</div>
+        <!-- <canvas id="background-canvas"></canvas> -->
+        <div class="background-gradient" v-bind:style="{ background: `linear-gradient(180deg, rgba(0, 0, 0, 0), ${bgColor} 80%)` }"></div>
+        <div class="background-caption" v-bind:style="{ color: fgColor }">© Jascha Quintern Photography</div>
     </div>
 
     <header class="main-title">
 
-        <div>
-            <img id="fuchsvomwalde-logo" src="./assets/img/fuchsvomwalde-logo.svg" alt="Fuchsvomwalde Logo">
-        </div>
-
-        <div id="headertitle">
-            <p>
-                <span>Jascha A.</span>
-                <span class="thin">Quintern</span>
-            </p>
-        </div>
-
-        <div id="subtitle">
-            <p>Founder • Creative Artist • Filmmaker • Developer • Software Architect</p>
-        </div>
-
         <ul class="btn-bar">
-            <li class="btn-wrapper flip-init ">
-                <a href="mailto:mail@jascha-quintern.de?Subject=Hello" target="_top" class="icon-mail"></a>
-            </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="https://hackerstolz.de" target="_top" class="img">
-                  <img height="32px" src="./assets/img/hackerstolz.svg" />
+            <li class="btn-wrapper flip-init fxFlipInX"
+                v-for="(link, index) in links" v-bind:key="link.name"
+                v-bind:style="{ borderColor: fgColor, color: fgColor, animationDelay: (100 * index) + 'ms' }">
+                <a target="_top"
+                    v-bind:href="link.href" v-bind:class="[link.icon ? `icon-${link.icon}` : '', link.svg ? 'img' : '']">
+                    <component v-if="link.svg" v-bind:is="link.svg" v-bind:style="{ fill: fgColor, height: '32px' }"></component>
                 </a>
             </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="https://pulseshift.com" target="_top" class="img">
-                  <img height="32px" src="./assets/img/pulseshift.svg" />
-                </a>
-            </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="https://twitter.com/fuchsvomwalde" target="_blank" class="icon-twitter"></a>
-            </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="https://www.facebook.com/jascha.quintern" target="_blank" class="icon-facebook"></a>
-            </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="https://www.xing.com/profile/Jascha_Quintern" target="_blank" class="icon-xing"></a>
-            </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="http://de.linkedin.com/pub/jascha-quintern/91/ba/29" target="_blank" class="icon-linkedin"></a>
-            </li>
-            <li class="btn-wrapper flip-init ">
-                <a href="https://github.com/fuchsvomwalde" target="_blank" class="icon-github"></a>
-            </li>
-            <!-- <li class="btn-wrapper flip-init ">
-                <a href="http://stackoverflow.com/users/4568723/jascha-quintern" target="_blank" class="icon-stack-overflow"></a>
-            </li> -->
-            <!-- <li class="btn-wrapper flip-init ">
-                <a href="https://itunes.apple.com/de/artist/jascha-quintern/id873642053" target="_blank" class="icon-apple"></a>
-            </li> -->
-            <li class="btn-wrapper flip-init ">
-                <a href="http://instagram.com/fuchsvomwalde" target="_blank" class="icon-instagram"></a>
-            </li>
-            <!-- <li class="btn-wrapper flip-init ">
-                <a href="https://www.flickr.com/photos/129289504@N05/" target="_blank" class="icon-flickr"></a>
-            </li> -->
         </ul>
+
+        <h1>
+            <HomepageLogo v-bind:style="{ fill: fgColor }" />
+        </h1>
+
+        <h2 class="headertitle" v-bind:style="{ color: fgColor }">
+            <span>{{titleBold}}</span>
+            <span class="thin">{{titleLight}}</span>
+        </h2>
+
+        <p class="subtitle" v-bind:style="{ color: fgColor }">{{subtitle}}</p>
+
     </header>
   </div>
 </template>
 
 <script>
+import * as Vibrant from 'node-vibrant'
+import { interval } from 'rxjs/observable/interval'
+import HomepageLogo from './assets/img/fuchsvomwalde-logo.svg'
+import HSIcon from './assets/img/hackerstolz.svg'
+import PSIcon from './assets/img/pulseshift.svg'
+
+// emit counter after every 5 seconds then complete, since no second argument is supplied
+const NextImgInterval = interval(10000)
+
 export default {
   name: 'app',
+  components: {
+    HomepageLogo,
+    HSIcon,
+    PSIcon
+  },
+  mounted() {
+    // subscribe to rxjs interval
+    const subscribe = NextImgInterval.subscribe(this.nextImage)
+
+    // load first image
+    this.nextImage(0)
+  },
+  methods: {
+    nextImage(val) {
+      this.counter = val
+
+      const newImageSrc = this.images[val % this.images.length]
+
+      // get color palette by image
+      Vibrant.from(newImageSrc)
+        .getPalette()
+        .then(palette => {
+          console.log(palette)
+
+          const {
+            Vibrant,
+            LightVibrant,
+            LightMuted,
+            Muted,
+            DarkVibrant,
+            DarkMuted
+          } =
+            palette || {}
+          const LightSwatch = LightVibrant || LightMuted || Vibrant
+          const DarkSwatch = DarkMuted || DarkVibrant || Muted
+
+          this.fgColor = LightSwatch ? LightSwatch.getHex() : '#fafafa'
+          this.bgColor = DarkSwatch ? DarkSwatch.getHex() : '#21212'
+        })
+    }
+  },
   data() {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      counter: 0,
+      titleBold: 'Jascha A.',
+      titleLight: 'Quintern',
+      subtitle:
+        'Founder • Creative Artist • Filmmaker • Developer • Software Architect',
+      fgColor: '#fafafa',
+      bgColor: '#212121',
+      images: [
+        require('./assets/img/bgr_1.jpg'),
+        require('./assets/img/bgr_2.jpg'),
+        require('./assets/img/bgr_3.jpg'),
+        require('./assets/img/bgr_4.jpg'),
+        require('./assets/img/bgr_5.jpg'),
+        require('./assets/img/bgr_6.jpg'),
+        require('./assets/img/bgr_7.jpg'),
+        require('./assets/img/bgr_8.jpg'),
+        require('./assets/img/bgr_9.jpg'),
+        require('./assets/img/bgr_10.jpg'),
+        require('./assets/img/bgr_11.jpg'),
+        require('./assets/img/bgr_12.jpg'),
+        require('./assets/img/bgr_13.jpg'),
+        require('./assets/img/bgr_14.jpg'),
+        require('./assets/img/bgr_15.jpg'),
+        require('./assets/img/bgr_16.jpg'),
+        require('./assets/img/bgr_17.jpg'),
+        require('./assets/img/bgr_18.jpg'),
+        require('./assets/img/bgr_19.jpg'),
+        require('./assets/img/bgr_20.jpg'),
+        require('./assets/img/bgr_21.jpg')
+      ],
+      links: [
+        {
+          name: 'mail',
+          href: 'mailto:mail@jascha-quintern.de?Subject=Hello',
+          icon: 'mail'
+        },
+        {
+          name: 'twitter',
+          href: 'https://twitter.com/fuchsvomwalde',
+          icon: 'twitter'
+        },
+        {
+          name: 'facebook',
+          href: 'https://www.facebook.com/jascha.quintern',
+          icon: 'facebook'
+        },
+        {
+          name: 'xing',
+          href: 'https://www.xing.com/profile/Jascha_Quintern',
+          icon: 'xing'
+        },
+        {
+          name: 'linkedin',
+          href: 'http://de.linkedin.com/pub/jascha-quintern/91/ba/29',
+          icon: 'linkedin'
+        },
+        {
+          name: 'github',
+          href: 'https://github.com/fuchsvomwalde',
+          icon: 'github'
+        },
+        {
+          name: 'instagram',
+          href: 'http://instagram.com/fuchsvomwalde',
+          icon: 'instagram'
+        },
+        {
+          name: 'Hackerstolz e.V.',
+          href: 'https://hackerstolz.de',
+          icon: null,
+          svg: 'HSIcon'
+        },
+        {
+          name: 'PulseShift GmbH',
+          href: 'https://pulseshift.com',
+          icon: null,
+          svg: 'PSIcon'
+        }
+      ]
     }
   }
 }
@@ -152,70 +183,222 @@ export default {
 @import './styles/fonts.less';
 @import './styles/animations.less';
 
-html * {margin: 0; padding: 0; font-size: 1rem; font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif; font-weight: 200;}
-
-body {background: #dddddd; -webkit-font-smoothing: antialiased; font-smoothing: antialiased;}
-
-.large-header {position: absolute; width: 100%; overflow: hidden; background: black; z-index: 2;}
-.header-caption {position: absolute; right: 0; bottom: 0; color: rgba(255,255,255,0.5); padding: 10px; font-size: .825rem; z-index: 5;}
-.header-skipper {position: absolute; cursor: pointer; width: 120px; text-align: center; color: white; padding: 10px; bottom: 75px; left: 50%; transform: translateX(-50%); -webkit-transform: translateX(-50%); z-index: 5;}
-.header-skipper .arrow-down {position: absolute; bottom: -35px; width: 50px; height: 50px; border-bottom: 1px solid white; border-right: 1px solid white; left: 50%; transform: translateX(-50%) rotate(45deg); -webkit-transform: translateX(-50%) rotate(45deg);}
-
-#header-canvas {position: absolute; z-index: 3;}
-.image-wrap {position: absolute; width: 100%; height: 100%; z-index: 1;}
-.image-wrap li {width: 100%; height: 100%; position: absolute; overflow: hidden; opacity: 0; opacity: 0; -webkit-transition: opacity 3s; transition: opacity 3s;}
-.image-wrap li.current {opacity: 1;}
-.image-wrap li img {position: absolute; left: 50%; max-height: 100%; transform: translateX(-50%); -webkit-transform: translateX(-50%);}
-@media (min-aspect-ratio: 3/2) { 
-  .image-wrap li img {max-width: 100%; height: auto; max-height: none;}
+html,
+html > body {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 200;
 }
 
-header {position: absolute; width: 100%; height: 5rem; top: 50%; text-align: center; transform: translateY(-150%); -webkit-transform: translateY(-150%); z-index: 5;}
-header #fuchsvomwalde-logo {width: 40vw;}
-header #headertitle span {color: rgba(255,255,255,1); font-weight: 600; font-size: 5vw; text-transform: uppercase; letter-spacing: 0.1rem; }
-header #headertitle span.thin {font-weight: 200; font-size: 5vw; white-space: nowrap;}
-header #subtitle p {
-  // max-width: 60vw;
-  // margin: 0 auto;
-  font-weight: 400;
-  font-size: 2vw;
-  color: #fff;
+body {
+  background: #dddddd;
+  -webkit-font-smoothing: antialiased;
 }
-@media (max-width: 800px) { 
-  header #headertitle span {font-size: 8vw;}
-  header #headertitle span.thin {font-size: 8vw;}
-  header #subtitle p {font-size: 3vw;}
-} 
-.btn-bar {max-width: 100%; width: 70vw; margin: 0 auto; list-style: none; padding-top: 2rem; text-align: center;}
-.btn-wrapper {width: 40px; height: 40px; margin: 10px; border: 2px solid white; border-radius: 25px; background: rgba(0,0,0,.6); transition: background .3s; display: inline-block; position: relative; text-align: -webkit-match-parent; cursor: pointer;}
-.btn-wrapper a {
-  font-size: 1.5rem;
-  position: relative;
-  top: 50%;
-  transform: translateY(-50%);
-  -webkit-transform: translateY(-50%);
-  display: block;
-  text-align: center;
-  text-decoration: none;
-  color: white;
-  transition: color .3s;
 
-  &.img {
-    font-size: 0;
-    line-height: 0;
+@media (min-aspect-ratio: 3/2) {
+  #app .background ul.image-wrap li img {
+    max-width: 100%;
+    height: auto;
+    max-height: none;
   }
- }
-.btn-wrapper:hover, .btn-wrapper:active {background: white;}
-.btn-wrapper:hover a, .btn-wrapper:active a {color: black;}
-.icon-github, .icon-linkedin {margin-left: 4px;}
-.icon-eyeem, .icon-pixel {font-weight: 800;}
-a.icon-pixel {font-size: 1.3rem; letter-spacing: -0.2rem; margin-top: -4px; margin-left: -1px;}
-@media (min-width: 800px) { 
-  .btn-wrapper {width: 60px; height: 60px; margin: 15px; border: 2px solid white; border-radius: 35px;}
-  .btn-wrapper a {font-size: 2rem;}
-  .icon-github, .icon-linkedin {margin-left: 5px;}
-  .icon-eyeem, .icon-pixel {font-weight: 800; margin-top: -3px; margin-left: -2px;}
-  a.icon-pixel {font-size: 2rem; letter-spacing: -0.3rem;}
 }
 
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+  .background {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 0;
+
+    ul.image-wrap {
+      position: absolute;
+      padding: 0;
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+
+      li {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        overflow: hidden;
+        opacity: 0;
+        opacity: 0;
+        background-size: cover;
+        background-position: center;
+        transition: opacity 3s;
+
+        &.current {
+          opacity: 1;
+        }
+      }
+    }
+
+    // .background-canvas {
+    //   position: absolute;
+    //   z-index: 2;
+    // }
+
+    .background-gradient {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 3;
+    }
+
+    .background-caption {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      color: inherit;
+      padding: 10px;
+      font-size: 0.825rem;
+      opacity: 0.5;
+      z-index: 3;
+    }
+  }
+
+  header {
+    width: 100%;
+    height: auto;
+    text-align: center;
+    z-index: 5;
+
+    h1 {
+      margin: 0;
+      margin-top: 1rem;
+
+      svg {
+        width: auto; // 40vw
+        transition: all 0.2s ease-in-out;
+      }
+    }
+
+    h2.headertitle {
+      margin: 0;
+
+      span {
+        color: inherit;
+        font-weight: 600;
+        font-size: 5vw;
+        text-transform: uppercase;
+        letter-spacing: 0.1rem;
+        transition: all 0.2s ease-in-out;
+
+        @media (min-width: 800px) {
+          font-size: 8vw;
+        }
+
+        &.thin {
+          font-weight: 200;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    p.subtitle {
+      margin: 0;
+      margin-top: 1rem;
+      font-weight: 400;
+      font-size: 2vw;
+      color: inherit;
+      transition: all 0.2s ease-in-out;
+
+      @media (min-width: 800px) {
+        font-size: 2vw;
+      }
+    }
+
+    ul.btn-bar {
+      max-width: 100%;
+      width: 80vw;
+      margin: 0 auto;
+      padding: 0;
+      list-style: none;
+      padding-top: 2rem;
+      display: flex;
+      flex-direction: row;
+      flex: 1 1 auto;
+      flex-wrap: wrap-reverse;
+      align-items: center;
+      justify-content: center;
+
+      li.btn-wrapper {
+        cursor: pointer;
+        flex-shrink: 0;
+        width: 40px;
+        height: 40px;
+        margin: 10px;
+        border: 2px solid;
+        border-color: inherit;
+        border-radius: 25px;
+        background: rgba(0, 0, 0, 0.5);
+        transition: background 0.3s;
+        display: inline-block;
+        text-align: -webkit-match-parent;
+        transition: all 0.2s ease-in-out;
+
+        @media (min-width: 800px) {
+          width: 60px;
+          height: 60px;
+          margin: 15px;
+          border: 2px solid;
+          border-radius: 35px;
+        }
+
+        &:hover,
+        &:active {
+          background: rgba(0, 0, 0, 0.8);
+        }
+
+        a {
+          font-size: 1.5rem;
+          position: relative;
+          top: 50%;
+          transform: translateY(-50%);
+          display: block;
+          text-align: center;
+          text-decoration: none;
+          color: inherit;
+          transition: color 0.3s;
+          transition: all 0.2s ease-in-out;
+
+          @media (min-width: 800px) {
+            font-size: 2rem;
+          }
+
+          svg {
+            transition: all 0.2s ease-in-out;
+          }
+
+          &.icon-github,
+          &.icon-linkedin {
+            margin-left: 4px;
+
+            @media (min-width: 800px) {
+              margin-left: 5px;
+            }
+          }
+
+          &.img {
+            font-size: 0;
+            line-height: 0;
+          }
+        }
+      }
+    }
+  }
+}
 </style>
