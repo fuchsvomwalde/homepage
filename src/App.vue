@@ -4,8 +4,12 @@
         <ul class="image-wrap fxSoftScale">
             <li v-bind:class="[counter % images.length === index ? 'current' : '']"
                 v-for="(imgURI, index) in images" v-bind:key="imgURI"
-                v-bind:style="{ backgroundImage: `url(${imgURI})`}"
-                v-if="counter % images.length === index || counter % images.length + 1 === index">
+                v-bind:style="{
+                  backgroundImage: counter % images.length === index ||
+                  counter % images.length + 1 === index
+                  ? `url(${imgURI})`
+                  : ''
+                }">
             </li>
         </ul>
         <!-- <canvas id="background-canvas"></canvas> -->
