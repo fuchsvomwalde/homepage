@@ -4,7 +4,8 @@
         <ul class="image-wrap fxSoftScale">
             <li v-bind:class="[counter % images.length === index ? 'current' : '']"
                 v-for="(imgURI, index) in images" v-bind:key="imgURI"
-                v-bind:style="{ backgroundImage: `url(${imgURI})`}">
+                v-bind:style="{ backgroundImage: `url(${imgURI})`}"
+                v-if="counter % images.length === index || counter % images.length + 1 === index">
             </li>
         </ul>
         <!-- <canvas id="background-canvas"></canvas> -->
@@ -74,8 +75,6 @@ export default {
       Vibrant.from(newImageSrc)
         .getPalette()
         .then(palette => {
-          console.log(palette)
-
           const {
             Vibrant,
             LightVibrant,

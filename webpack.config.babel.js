@@ -3,6 +3,7 @@ import webpack from 'webpack'
 import merge from 'webpack-merge'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
 import GzipCompressionPlugin from 'compression-webpack-plugin'
 import BrotliCompressionPlugin from 'brotli-webpack-plugin'
 
@@ -148,6 +149,8 @@ const config_prod = {
     hints: 'warning'
   },
   plugins: [
+    // clean up old dist assets
+    new CleanWebpackPlugin([path.resolve(__dirname, './dist')]),
     new webpack.LoaderOptionsPlugin({
       // indicates to our loaders that they should minify their output if they have the capability to do so
       minimize: true,
