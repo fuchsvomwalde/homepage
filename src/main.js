@@ -1,6 +1,6 @@
 import Vue from 'vue'
-import VueRx from 'vue-rx'
-import { Observable } from 'rxjs/Observable'
+// import VueRx from 'vue-rx'
+// import { Observable } from 'rxjs/Observable'
 // import { Subject } from 'rxjs/Subject' // required for domStreams option
 
 import App from './App.vue'
@@ -9,10 +9,10 @@ import App from './App.vue'
 // import './scripts/main.js'
 
 // tada!
-Vue.use(VueRx, {
-  Observable
-  // Subject
-})
+// Vue.use(VueRx, {yarn start
+//   Observable,
+//   Subject
+// })
 
 new Vue({
   el: '#app',

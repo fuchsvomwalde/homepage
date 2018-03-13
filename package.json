@@ -5,16 +5,14 @@
   "author": "jascha.quintern@gmail.com",
   "license": "MIT",
   "scripts": {
-    "start": "cross-env NODE_ENV=development PORT=3000 webpack-dev-server --hot",
+    "start": "cross-env NODE_ENV=development PORT=3000 webpack-dev-server --progress --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
     "test": "yarn eslint ./src"
   },
   "dependencies": {
-    "img-loader": "^2.0.1",
+    "babel-polyfill": "^6.26.0",
     "node-vibrant": "^3.0.0",
-    "rxjs": "^5.5.6",
-    "vue": "^2.5.11",
-    "vue-rx": "^5.0.0"
+    "vue": "^2.5.11"
   },
   "browserslist": [
     "> 1%",
@@ -40,6 +38,7 @@
     "favicons-webpack-plugin": "^0.0.7",
     "file-loader": "^1.1.4",
     "html-webpack-plugin": "^3.0.6",
+    "image-webpack-loader": "^4.1.0",
     "less": "^3.0.1",
     "less-loader": "^4.1.0",
     "pleeease-filters": "^4.0.0",
@@ -52,6 +51,7 @@
     "postcss-pseudoelements": "^5.0.0",
     "postcss-will-change": "^2.0.0",
     "postcss-zindex": "^2.2.0",
+    "preload-webpack-plugin": "^2.3.0",
     "url-loader": "^1.0.1",
     "vue-loader": "^13.0.5",
     "vue-svg-loader": "^0.5.0",

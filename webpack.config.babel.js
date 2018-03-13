@@ -2,6 +2,7 @@ import path from 'path'
 import webpack from 'webpack'
 import merge from 'webpack-merge'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import PreloadWebpackPlugin from 'preload-webpack-plugin'
 import FaviconsWebpackPlugin from 'favicons-webpack-plugin'
 import CleanWebpackPlugin from 'clean-webpack-plugin'
 import GzipCompressionPlugin from 'compression-webpack-plugin'
@@ -10,7 +11,7 @@ import BrotliCompressionPlugin from 'brotli-webpack-plugin'
 const isProductionBuild = process.env.NODE_ENV === 'production'
 
 const config_common = {
-  entry: './src/main.js',
+  entry: ['babel-polyfill', './src/main.js'],
   output: {
     publicPath: '/'
   },
@@ -39,13 +40,6 @@ const config_common = {
         }
       },
       {
-        test: /\.ttf$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[sha512:hash:base62:8].[ext]?[hash]'
-        }
-      },
-      {
         test: /\.(jpe?g|png|gif)$/i,
         use: [
           {
@@ -55,8 +49,7 @@ const config_common = {
             }
           },
           {
-            loader: 'img-loader',
-            // use default compression options
+            loader: 'image-webpack-loader',
             options: {
               enabled: isProductionBuild
             }
@@ -64,7 +57,14 @@ const config_common = {
         ]
       },
       {
-        test: /\.(woff|woff2)$/,
+        test: /\.ttf$/,
+        loader: 'file-loader',
+        options: {
+          name: '[name].[sha512:hash:base62:8].[ext]?[hash]'
+        }
+      },
+      {
+        test: /\.(woff2?)$/,
         use: {
           loader: 'url-loader',
           options: {
@@ -89,6 +89,18 @@ const config_common = {
       filename: 'index.html',
       template: './src/index.html',
       inject: 'body'
+    }),
+
+    // add preload links to index.html
+    new PreloadWebpackPlugin({
+      rel: 'preload',
+      include: 'initial',
+      as(entry) {
+        if (/\.css$/.test(entry)) return 'style'
+        if (/\.(woff2?|ttf)$/.test(entry)) return 'font'
+        if (/\.(png|jpe?g|gif)$/.test(entry)) return 'image'
+        return 'script'
+      }
     }),
 
     // generate favicon
@@ -151,6 +163,7 @@ const config_prod = {
   plugins: [
     // clean up old dist assets
     new CleanWebpackPlugin([path.resolve(__dirname, './dist')]),
+    // pass options to loaders
     new webpack.LoaderOptionsPlugin({
       // indicates to our loaders that they should minify their output if they have the capability to do so
       minimize: true,

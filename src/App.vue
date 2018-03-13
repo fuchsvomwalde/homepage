@@ -46,14 +46,14 @@
 </template>
 
 <script>
-import * as Vibrant from 'node-vibrant'
-import { interval } from 'rxjs/observable/interval'
+// note: rxjs is not required at the time
+// import { interval } from 'rxjs/observable/interval'
 import HomepageLogo from './assets/img/fuchsvomwalde-logo.svg'
 import HSIcon from './assets/img/hackerstolz.svg'
 import PSIcon from './assets/img/pulseshift.svg'
 
 // emit counter after every 5 seconds then complete, since no second argument is supplied
-const NextImgInterval = interval(10000)
+// const NextImgInterval = interval(10000)
 
 export default {
   name: 'app',
@@ -64,36 +64,33 @@ export default {
   },
   mounted() {
     // subscribe to rxjs interval
-    const subscribe = NextImgInterval.subscribe(this.nextImage)
+    // const subscribe = NextImgInterval.subscribe(this.nextImage)
 
     // load first image
     this.nextImage(0)
   },
   methods: {
-    nextImage(val) {
+    async nextImage(val) {
       this.counter = val
 
       const newImageSrc = this.images[val % this.images.length]
 
-      // get color palette by image
-      Vibrant.from(newImageSrc)
-        .getPalette()
-        .then(palette => {
-          const {
-            Vibrant,
-            LightVibrant,
-            LightMuted,
-            Muted,
-            DarkVibrant,
-            DarkMuted
-          } =
-            palette || {}
-          const LightSwatch = LightVibrant || LightMuted || Vibrant
-          const DarkSwatch = DarkMuted || DarkVibrant || Muted
+      // lazy-load vibrant as new chunk
+      const Vibrant = await import('node-vibrant')
 
-          this.fgColor = LightSwatch ? LightSwatch.getHex() : '#fafafa'
-          this.bgColor = DarkSwatch ? DarkSwatch.getHex() : '#21212'
-        })
+      // get color palette by image
+      const palette = await Vibrant.from(newImageSrc).getPalette()
+
+      const LightSwatch =
+        palette.LightVibrant || palette.LightMuted || palette.Vibrant
+      const DarkSwatch =
+        palette.DarkMuted || palette.DarkVibrant || palette.Muted
+
+      this.fgColor = LightSwatch ? LightSwatch.getHex() : '#fafafa'
+      this.bgColor = DarkSwatch ? DarkSwatch.getHex() : '#21212'
+
+      // call next image after 5 seconds
+      setTimeout(() => this.nextImage(val + 1), 6000)
     }
   },
   data() {
