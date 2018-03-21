@@ -22,8 +22,8 @@ For detailed explanation on how things work, consult the [docs for vue-loader](h
 
 ## TODOs
 
-* [ ] Load images randomly async from instagram
-* [ ] Idea: load HEIF images (maybe encode in webworkers) into canvas with additional blur transition
+* [ ] Load images randomly async from instagram API
+* [ ] Idea: load HEIF or AV1 images (maybe encode in webworkers) into canvas with additional blur transition
 * [ ] Use SVGs only instead of icomoon icon fonts
 * [ ] Replace buttons with MDL components
 * [ ] Clean up CSS styles and adopt LESS best-practices
