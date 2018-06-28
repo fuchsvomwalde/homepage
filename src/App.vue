@@ -143,12 +143,12 @@ export default {
         },
         {
           name: 'xing',
-          href: 'https://www.xing.com/profile/Jascha_Quintern',
+          href: 'https://www.xing.com/profile/JaschaA_Quintern/cv',
           icon: 'xing'
         },
         {
           name: 'linkedin',
-          href: 'http://de.linkedin.com/pub/jascha-quintern/91/ba/29',
+          href: 'https://www.linkedin.com/in/jascha-a-quintern-0290ba91/',
           icon: 'linkedin'
         },
         {
